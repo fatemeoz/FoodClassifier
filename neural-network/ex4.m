@@ -20,8 +20,8 @@
 clear ; close all; clc
 
 %% Setup the parameters you will use for this exercise
-input_layer_size  = 10000;  % 100x100 Input Images of Digits
-hidden_layer_size = 70;   % 25 hidden units
+input_layer_size  = 10003;  % 100x100 Input Images of Digits
+hidden_layer_size = 65;   % 25 hidden units
 num_labels = 4;          % 4 labels, from 1 to 4   
                           % (note that we have mapped "0" to label 10)
 
@@ -50,38 +50,50 @@ num_labels = 4;          % 4 labels, from 1 to 4
 % y = yf;
 
 
-X = ones(1,10000);
+X = ones(1,10003);
 y = ones(1,1);
 
 files = dir('../dataset/rice/final/*.jpg');
 for file = files'
     temp = imread(strcat('../dataset/rice/final/',file.name));
+    dominantRedValue = mean2(temp(:, :, 1));
+    dominantGreenValue = mean2(temp(:, :, 2));
+    dominantBlueValue = mean2(temp(:, :, 3));
     temp = rgb2gray(temp);
-    X = [X; temp(:)'];
+    X = [X; temp(:)', dominantBlueValue, dominantRedValue, dominantGreenValue];
     y = [y;1];
 end
 
 files = dir('../dataset/bread/final/*.jpg');
 for file = files'
     temp = imread(strcat('../dataset/bread/final/',file.name));
+    dominantRedValue = mean2(temp(:, :, 1));
+    dominantGreenValue = mean2(temp(:, :, 2));
+    dominantBlueValue = mean2(temp(:, :, 3));
     temp = rgb2gray(temp);
-    X = [X; temp(:)'];
+    X = [X; temp(:)', dominantBlueValue, dominantRedValue, dominantGreenValue];
     y = [y;2];
 end
 
 files = dir('../dataset/meat/final/*.jpg');
 for file = files'
     temp = imread(strcat('../dataset/meat/final/',file.name));
+    dominantRedValue = mean2(temp(:, :, 1));
+    dominantGreenValue = mean2(temp(:, :, 2));
+    dominantBlueValue = mean2(temp(:, :, 3));
     temp = rgb2gray(temp);
-    X = [X; temp(:)'];
+    X = [X; temp(:)', dominantBlueValue, dominantRedValue, dominantGreenValue];
     y = [y;3];
 end
 
 files = dir('../dataset/pizza/final/*.jpg');
 for file = files'
     temp = imread(strcat('../dataset/pizza/final/',file.name));
+    dominantRedValue = mean2(temp(:, :, 1));
+    dominantGreenValue = mean2(temp(:, :, 2));
+    dominantBlueValue = mean2(temp(:, :, 3));
     temp = rgb2gray(temp);
-    X = [X; temp(:)'];
+    X = [X; temp(:)', dominantBlueValue, dominantRedValue, dominantGreenValue];
     y = [y;4];
 end
 
@@ -237,10 +249,10 @@ fprintf('\nTraining Neural Network... \n')
 
 
 
-options = optimset('MaxIter', 400);
+options = optimset('MaxIter', 200);
 
 %  You should also try different values of lambda
-lambda = 2;
+lambda = 1;
 
 % Create "short hand" for the cost function to be minimized
 costFunction = @(p) nnCostFunction(p, ...
@@ -270,7 +282,7 @@ pause;
 
 fprintf('\nVisualizing Neural Network... \n')
 
-displayData(Theta1(:, 2:end));
+%displayData(Theta1(:, 2:end));
 
 fprintf('\nProgram paused. Press enter to continue.\n');
 pause;

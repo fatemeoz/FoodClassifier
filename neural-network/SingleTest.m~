@@ -1,0 +1,4 @@
+temp = imread('../dataset/test/final/pizza/');
+dominantRedValue = mean2(temp(:, :, 1));
+   dominantGreenValue = mean2(temp(:, :, 2));
+dominantBlueValue = mean2(temp(:, :, 3));

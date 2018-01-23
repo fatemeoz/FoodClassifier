@@ -4,7 +4,7 @@ import os
 
 
 # change the following path
-directory = "/Users/reza/Desktop/foodClassifier/dataset/test"
+directory = "/Users/reza/Desktop/foodClassifier/dataset/meat"
 
 for filename in os.listdir(directory):
     if filename.endswith('.jpg'):
