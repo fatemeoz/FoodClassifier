@@ -1,4 +1,4 @@
-load('test2.mat');
+load('best.mat');
 
 x_test = ones(1,10003);
 y_test = ones(1,1);

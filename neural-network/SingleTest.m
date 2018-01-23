@@ -1,4 +1,4 @@
-load('test2.mat');
+load('best.mat');
 
 temp = imread('../dataset/test/final/pizza/pizza9.jpg');
 dominantRedValue = mean2(temp(:, :, 1));

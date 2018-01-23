@@ -247,9 +247,10 @@ fprintf('\nTraining Neural Network... \n')
 %  After you have completed the assignment, change the MaxIter to a larger
 %  value to see how more training helps.
 
+% load('best.mat');
+% initial_nn_params = [Theta1(:); Theta2(:)];
 
-
-options = optimset('MaxIter', 200);
+options = optimset('MaxIter', 300);
 
 %  You should also try different values of lambda
 lambda = 1;
