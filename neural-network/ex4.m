@@ -33,22 +33,60 @@ num_labels = 4;          % 4 labels, from 1 to 4
 % Load Training Data
 
 
-load('../dataset/rice/final/data.mat');
-Xf = X;
-yf = y;
-load('../dataset/bread/final/data.mat');
-Xf = [Xf; X];
-yf = [yf; y];
-load('../dataset/meat/final/data.mat');
-Xf = [Xf; X];
-yf = [yf; y];
-load('../dataset/pizza/final/data.mat');
-Xf = [Xf; X];
-yf = [yf; y];
+% load('../dataset/rice/final/data.mat');
+% Xf = X;
+% yf = y;
+% load('../dataset/bread/final/data.mat');
+% Xf = [Xf; X];
+% yf = [yf; y];
+% load('../dataset/meat/final/data.mat');
+% Xf = [Xf; X];
+% yf = [yf; y];
+% load('../dataset/pizza/final/data.mat');
+% Xf = [Xf; X];
+% yf = [yf; y];
+% 
+% X = double(Xf);
+% y = yf;
 
-X = double(Xf);
-y = yf;
 
+X = ones(1,10000);
+y = ones(1,1);
+
+files = dir('../dataset/rice/final/*.jpg');
+for file = files'
+    temp = imread(strcat('../dataset/rice/final/',file.name));
+    temp = rgb2gray(temp);
+    X = [X; temp(:)'];
+    y = [y;1];
+end
+
+files = dir('../dataset/bread/final/*.jpg');
+for file = files'
+    temp = imread(strcat('../dataset/bread/final/',file.name));
+    temp = rgb2gray(temp);
+    X = [X; temp(:)'];
+    y = [y;2];
+end
+
+files = dir('../dataset/meat/final/*.jpg');
+for file = files'
+    temp = imread(strcat('../dataset/meat/final/',file.name));
+    temp = rgb2gray(temp);
+    X = [X; temp(:)'];
+    y = [y;3];
+end
+
+files = dir('../dataset/pizza/final/*.jpg');
+for file = files'
+    temp = imread(strcat('../dataset/pizza/final/',file.name));
+    temp = rgb2gray(temp);
+    X = [X; temp(:)'];
+    y = [y;4];
+end
+
+X = double(X(2:end, :));
+y = y(2:end, :);
 
 pause;
 

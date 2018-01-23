@@ -21,7 +21,7 @@ clear ; close all; clc
 
 %% Setup the parameters you will use for this exercise
 input_layer_size  = 10000;  % 100x100 Input Images of Digits
-hidden_layer_size = 10;   % 25 hidden units
+hidden_layer_size = 70;   % 25 hidden units
 num_labels = 4;          % 4 labels, from 1 to 4   
                           % (note that we have mapped "0" to label 10)
 
@@ -49,6 +49,33 @@ yf = [yf; y];
 X = double(Xf);
 y = yf;
 
+
+X = ones(1,10000);
+y = ones(1,1);
+
+files = dir('../dataset/rice/final/*.jpg');
+for file = files'
+    temp = imread(strcat('../dataset/rice/final/',file.name));
+    temp = rgb2gray(temp);
+    X = [X; temp(:)'];
+    y = [y_test;1];
+end
+
+files = dir('../dataset/bread/final/*.jpg');
+for file = files'
+    temp = imread(strcat('../dataset/bread/final/',file.name));
+    temp = rgb2gray(temp);
+    X = [X; temp(:)'];
+    y = [y_test;2];
+end
+
+files = dir('../dataset/rice/final/*.jpg');
+for file = files'
+    temp = imread(strcat('../dataset/rice/final/',file.name));
+    temp = rgb2gray(temp);
+    X = [X; temp(:)'];
+    y = [y_test;1];
+end
 
 pause;
 
@@ -196,10 +223,13 @@ fprintf('\nTraining Neural Network... \n')
 
 %  After you have completed the assignment, change the MaxIter to a larger
 %  value to see how more training helps.
-options = optimset('MaxIter', 5000);
+
+
+
+options = optimset('MaxIter', 400);
 
 %  You should also try different values of lambda
-lambda = 0.;
+lambda = 2;
 
 % Create "short hand" for the cost function to be minimized
 costFunction = @(p) nnCostFunction(p, ...
